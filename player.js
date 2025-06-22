@@ -1,12 +1,12 @@
 import {Gameboard} from "./gameboard.js"
-import {loadTimeout, toggleGridDisplay} from"./event.js"
+import {loadTimeout, toggleGridDisplay, delay} from"./event.js"
 class Player{
     constructor(type, name){
         this.type = type; this.gameBoard = new Gameboard(); this.name = name; this.enemy= null
     }
     loadShips(){
-        this.gameBoard.placeShip(3, 0, 0, "horizontal") 
-        this.gameBoard.placeShip(2, 1, 0, "vertical")
+        this.gameBoard.placeShip(1, 0, 0, "horizontal") 
+        // this.gameBoard.placeShip(2, 1, 0, "vertical")
     }
     startTurn(){
         // console.log(document.querySelector(".playerTracker").innerText)
@@ -47,15 +47,35 @@ class Player{
         let pair = this.convertIdToPair(id)
         let row = pair[0]; let col = pair[1]
         let hit = this.enemy.gameBoard.receiveAttack(row, col);
+       //this.enemy.gameBoard.displayAsEnemy(this.enemy.name.substring(this.enemy.name.length-1))
         this.displayHitOrMiss(hit)
-        this.enemy.gameBoard.displayAsEnemy(this.enemy.name.substring(this.enemy.name.length-1))
+        
+    }
+    async displayWinScreen(){
+        let restart = document.getElementById("restart")
+        let s = document.querySelector(".gameOverScreen"); s.id = "show";
+        document.querySelector(".gameOverMessage").innerText = this.name + " wins!"
+        await delay(3000)
+        toggleGridDisplay();
+        restart.className = "show"
+        restart.addEventListener("click", ()=>{
+            s.className = ""
+            restart.className = "hide"
+        })
+
     }
     async endTurn(){
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        toggleGridDisplay();
-        await loadTimeout("Switching Players...", 3000)
-        toggleGridDisplay();
-        this.enemy.startTurn()
+        if(this.enemy.gameBoard.isAllSunk()){
+            this.displayWinScreen();
+        }
+        else{
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            toggleGridDisplay();
+            await loadTimeout("Switching Players...", 3000)
+            toggleGridDisplay();
+            this.enemy.startTurn()
+        }
     }
+
 }
 export {Player}

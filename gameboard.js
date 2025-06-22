@@ -64,7 +64,6 @@ class Gameboard{
         // let c = "p" + playerNum + "Grid"
         let e = document.querySelectorAll(".p" + playerNum + "Grid")[1].children
         for(let i = 0; i < e.length; i++){
-            console.log(e[i])
             let r = parseInt(i/10); let c = i%10
             e[i].className = this.board[r][c];
         }

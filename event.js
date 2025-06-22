@@ -1,4 +1,7 @@
 import {Player} from "./player.js"
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 function toggleMenu(){
     let e = document.querySelector(".menuScreen")
     if(e.style.display=="none"){
@@ -77,4 +80,4 @@ function loadCells(p1, p2){
     })
 }
 
-export {toggleMenu, loadTimeout, loadCells, toggleGrid, toggleGridDisplay}
+export {toggleMenu, loadTimeout, loadCells, toggleGrid, toggleGridDisplay, delay}

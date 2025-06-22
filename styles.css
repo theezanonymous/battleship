@@ -2,15 +2,17 @@
     margin: 0 ; 
 }
 .playerTracker{
-    display: block;
+    display: block; scale: 0;
 }
 body{
+    overflow: hidden;
   background-color: black;   font-family:'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   color: white;
 }
 .header{
-    display: flex; justify-content: center;
+    display: flex; justify-content: center; 
 }
+
 .logo{
     height: 17vh; 
     box-shadow: white;
@@ -101,4 +103,31 @@ div>.hit{
 }
 div>.shipHit{
     background-color: red;
+}
+.gameOverScreen{
+    background-color: black;
+    opacity: 0; transition: 1s ease-in-out;
+    height: 0; width: 100%; 
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+    gap: 7vh;
+
+}
+.gameOverScreen#show{
+    margin-top: 8vh; height: 100%; position: fixed;
+    opacity: 1; transition: 3s ease-in-out;
+}
+.gameOverMessage{
+    text-align: center; font-size: 10vh;
+}
+#restart{
+    padding-top: 1vh;
+}
+#restart.show{
+    height: 8vh; transition: all 0.7s ease-in-out; font-size: 5vh;
+    border: solid 7px white; border-radius: 15px; text-align: center; width: 16vw;
+}
+#restart.hide{
+    scale: 0; transition: 0.7s ease-in-out;
 }
