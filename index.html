@@ -7,6 +7,33 @@
     <title>Battleship</title>
 </head>
 <body>
-    <script link = "script.js"></script>
+    <div class="playerTracker">P1</div>
+    <div class="header">
+        <img class = "logo" src="./img/battleship-logo.jpg" alt="">
+    </div>
+    <div class="loadingScreen"></div>
+    <div class="menuScreen">
+        <div class = "playerSelection">
+            <div class = "computer" id = "selected">
+                <img src="./img/laptop.svg" alt="">
+                <div>Computer</div>
+            </div>
+            <div class = "player">
+                <img src="./img/account.svg" alt="">
+                <div>Player</div>
+            </div>
+            
+        
+        </div>
+        <div class="startButton">Start</div>
+    </div>
+    <div class="gridContainer">
+        <div class="grid" id = "playerBoard"></div>
+        <div class="grid" id="enemyBoard"></div>
+        <div>Your Board</div>
+        <div>Enemy Board</div>
+    </div>
+    <script type="module" src="script.js"></script>
+
 </body>
 </html>
