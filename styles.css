@@ -93,10 +93,10 @@ body{
 .ship{
     background-color: gray;
 }
-.miss{
+div>.miss{
     background-color: white;
 }
-.hit{
+div>.hit{
     background-color: green;
 }
 div>.shipHit{

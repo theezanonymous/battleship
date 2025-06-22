@@ -42,29 +42,31 @@ class Gameboard{
         let e = document.getElementById(id)
         e.className = c
     }
-    displayAsPlayer(){
+    displayAsPlayer(playerNum){
         this.ships.forEach((ship)=>{
             let endRow = ship.orientation=="horizontal"?ship.startRow: ship.startRow+ship.length-1;
             let endCol = ship.orientation=="vertical"? ship.startCol: ship.startCol+ship.length-1;
             for(let i = ship.startRow; i <=endRow; i++){
                 for(let j = ship.startCol; j <=endCol; j++){
-                    this.setCellClass(i, j, "p", "ship")
+                    this.setCellClass(i, j, playerNum.toString(), "ship")
                 }
             }
         })
         for(let i = 0; i < 10; i++){
             for(let j = 0; j< 10; j++){
                 if(this.board[i][j]=="hit"){
-                    document.getElementById("p-"+i+"-"+j).classList.add("shipHit")
+                    document.getElementById(playerNum.toString() + "-"+i+"-"+j).classList.add("shipHit")
                 }
             }
         }
     }
-    displayAsEnemy(){
-        let e = document.getElementById("enemyBoard").children
+    displayAsEnemy(playerNum){
+        // let c = "p" + playerNum + "Grid"
+        let e = document.querySelectorAll(".p" + playerNum + "Grid")[1].children
         for(let i = 0; i < e.length; i++){
+            console.log(e[i])
             let r = parseInt(i/10); let c = i%10
-            e.className = this.board[r][c];
+            e[i].className = this.board[r][c];
         }
 
     }

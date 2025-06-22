@@ -12,8 +12,8 @@ class Player{
         // console.log(document.querySelector(".playerTracker").innerText)
         document.querySelector(".playerTracker").innerText = this.name;
         this.gameBoard.clearCellStates()
-        this.gameBoard.displayAsPlayer()
-        this.enemy.gameBoard.displayAsEnemy()
+        this.gameBoard.displayAsPlayer(this.name.substring(this.name.length-1))
+        this.enemy.gameBoard.displayAsEnemy(this.name.substring(this.name.length-1))
         document.querySelector(".message").innerText = this.name + "'s Turn"
     }
     convertIdToPair(id){
@@ -48,6 +48,7 @@ class Player{
         let row = pair[0]; let col = pair[1]
         let hit = this.enemy.gameBoard.receiveAttack(row, col);
         this.displayHitOrMiss(hit)
+        this.enemy.gameBoard.displayAsEnemy(this.enemy.name.substring(this.enemy.name.length-1))
     }
     async endTurn(){
         await new Promise(resolve => setTimeout(resolve, 3000));

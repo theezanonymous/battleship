@@ -36,18 +36,18 @@ function loadCells(p1, p2){
     document.querySelectorAll(".p1Grid").forEach((x)=>{
         for(let i = 0; i < 100; i++){//Okay, we have two types of cells with the same ids. We need to resolve
            let e = document.createElement("div")
-           let tag = x.id == "playerBoard"? "p":"e"
+           let tag = x.id == "playerBoard"? "1":"e"
            tag = tag + "-"+(parseInt(i/10))+"-"+(i%10)
            e.id = tag
            x.appendChild(e)
            
            if(x.id=="enemyBoard"){ //Configure event for selecting enemy board slots
-                e.addEventListener("click", ()=>{
+                e.addEventListener("click", async ()=>{
                     let p = document.querySelector(".playerTracker")
                     if(p2.isValidAttack(e.id)){ //If the enemy has not been hit here...
                         // console.log("Player 1's Attack is valid")
                         p1.processTurn(e.id); 
-                        p1.endTurn()
+                        await p1.endTurn()
                         toggleGrid()
                     }
                 })
@@ -57,18 +57,18 @@ function loadCells(p1, p2){
     document.querySelectorAll(".p2Grid").forEach((x)=>{
         for(let i = 0; i < 100; i++){
            let e = document.createElement("div")
-           let tag = x.id == "playerBoard"? "p":"e"
+           let tag = x.id == "playerBoard"? "2":"e"
            tag = tag + "-"+(parseInt(i/10))+"-"+(i%10)
            e.id = tag
            x.appendChild(e)
            
            if(x.id=="enemyBoard"){ //Configure event for selecting enemy board slots
-                e.addEventListener("click", ()=>{
+                e.addEventListener("click", async ()=>{
                     let p = document.querySelector(".playerTracker")
                     if(p1.isValidAttack(e.id)){ //If the enemy has not been hit here...
                         // console.log("Player 1's Attack is valid")
                         p2.processTurn(e.id); 
-                        p2.endTurn()
+                        await p2.endTurn()
                         toggleGrid()
                     }
                 })
