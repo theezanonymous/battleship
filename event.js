@@ -9,13 +9,19 @@ function toggleMenu(){
     }
     
 }
+function toggleGridDisplay(){
+    let e = document.querySelector(".body");
+    e.style.display= e.style.display=="none"?"block": "none";
+}
 function toggleGrid(){
-    let e = document.querySelector(".gridContainer")
-    if(e.style.display=="none"){
-        e.style.display="grid"
+    let e = document.querySelectorAll(".gridContainer")
+    if(e[0].style.display=="none"){
+        e[0].style.display="grid"
+        e[1].style.display = "none"
     }
     else{
-        e.style.display = "none"
+        e[0].style.display = "none"
+        e[1].style.display = "grid"
     }
 }
 async function loadTimeout(text, ms){
@@ -26,8 +32,29 @@ async function loadTimeout(text, ms){
 }
 
 function loadCells(p1, p2){
-    let gridContainer = document.querySelector(".gridContainer"); gridContainer.style.display = "grid";
-    document.querySelectorAll(".grid").forEach((x)=>{
+    let gridContainer = document.querySelector("#p1"); gridContainer.style.display = "grid";
+    document.querySelectorAll(".p1Grid").forEach((x)=>{
+        for(let i = 0; i < 100; i++){//Okay, we have two types of cells with the same ids. We need to resolve
+           let e = document.createElement("div")
+           let tag = x.id == "playerBoard"? "p":"e"
+           tag = tag + "-"+(parseInt(i/10))+"-"+(i%10)
+           e.id = tag
+           x.appendChild(e)
+           
+           if(x.id=="enemyBoard"){ //Configure event for selecting enemy board slots
+                e.addEventListener("click", ()=>{
+                    let p = document.querySelector(".playerTracker")
+                    if(p2.isValidAttack(e.id)){ //If the enemy has not been hit here...
+                        // console.log("Player 1's Attack is valid")
+                        p1.processTurn(e.id); 
+                        p1.endTurn()
+                        toggleGrid()
+                    }
+                })
+           }
+        }
+    })
+    document.querySelectorAll(".p2Grid").forEach((x)=>{
         for(let i = 0; i < 100; i++){
            let e = document.createElement("div")
            let tag = x.id == "playerBoard"? "p":"e"
@@ -38,21 +65,11 @@ function loadCells(p1, p2){
            if(x.id=="enemyBoard"){ //Configure event for selecting enemy board slots
                 e.addEventListener("click", ()=>{
                     let p = document.querySelector(".playerTracker")
-                    if(p.innerText = "P1"){
-                        if(p2.isValidAttack(e.id)){ //If the enemy has not been hit here...
-                           // console.log("Player 1's Attack is valid")
-                            p1.processTurn(e.id); 
-                            p1.endTurn()
-                            p.innerText = "P2"
-                        }
-                    }
-                    else{
-                        if(p1.isValidAttack(e.id)){
-                            //console.log("Player 2's attack is valid")
-                            p2.processTurn(e.id);
-                            p2.endTurn()
-                            p.innerText = "P1"
-                        }
+                    if(p1.isValidAttack(e.id)){ //If the enemy has not been hit here...
+                        // console.log("Player 1's Attack is valid")
+                        p2.processTurn(e.id); 
+                        p2.endTurn()
+                        toggleGrid()
                     }
                 })
            }
@@ -60,4 +77,4 @@ function loadCells(p1, p2){
     })
 }
 
-export {toggleMenu, loadTimeout, loadCells, toggleGrid}
+export {toggleMenu, loadTimeout, loadCells, toggleGrid, toggleGridDisplay}

@@ -99,3 +99,6 @@ body{
 .hit{
     background-color: green;
 }
+div>.shipHit{
+    background-color: red;
+}

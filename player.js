@@ -1,5 +1,5 @@
 import {Gameboard} from "./gameboard.js"
-import {loadTimeout, toggleGrid} from"./event.js"
+import {loadTimeout, toggleGridDisplay} from"./event.js"
 class Player{
     constructor(type, name){
         this.type = type; this.gameBoard = new Gameboard(); this.name = name; this.enemy= null
@@ -51,9 +51,9 @@ class Player{
     }
     async endTurn(){
         await new Promise(resolve => setTimeout(resolve, 3000));
-        toggleGrid();
+        toggleGridDisplay();
         await loadTimeout("Switching Players...", 3000)
-        toggleGrid();
+        toggleGridDisplay();
         this.enemy.startTurn()
     }
 }

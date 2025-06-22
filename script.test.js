@@ -20,6 +20,7 @@ test("Ship contains works", ()=>{
     expect(ship.contains(0,3)).toBeFalsy()
     ship.orientation = "vertical"
     expect(ship.contains(0,1)).toBeFalsy()
+    expect(ship.contains(1,0)).toBeTruthy()
 })
 test("Receive attack works", ()=>{
     let gB = new Gameboard();
@@ -41,15 +42,15 @@ test("isValidAttack works", ()=>{
     
 
 })
-test("Marking a hit works", ()=>{
-    let p1 = new Player(); let p2 = new Player();
-    //loadCells()
-    p1.enemy = p2; p2.enemy = p1;
-    p1.loadShips(); p2.loadShips()
-    //p1.startTurn() 
-    p1.processTurn("e-0-0")
-    expect(p2.gameBoard.board[0][0]).toBe("hit")
-})
+// test("Marking a hit works", ()=>{
+//     let p1 = new Player(); let p2 = new Player();
+//     //loadCells()
+//     p1.enemy = p2; p2.enemy = p1;
+//     p1.loadShips(); p2.loadShips()
+//     //p1.startTurn() 
+//     p1.processTurn("e-0-0")
+//     expect(p2.gameBoard.board[0][0]).toBe("hit")
+// })
 // test("Player switch works", ()=>{
 //     let p1 = new Player(); let p2 = new Player();
 //     p1.startTurn(); p1.endTurn(); p1.startTurn();

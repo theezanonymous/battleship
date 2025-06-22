@@ -15,25 +15,26 @@ class Gameboard{
     }
     receiveAttack(row, col){
         for(let i = 0; i < this.ships.length; i++){
+            // console.log(this.ships[i], row, col, this.ships[i].contains(row, col))
             if(!this.ships[i].isSunk() && this.ships[i].contains(row,col) ){
                 this.ships[i].hit(); this.board[row][col] = "hit"
                 return this.ships[i].isSunk()? "sunk" :"hit";
             }
             else{
-                this.board[row][col] = "miss"
-                return "miss"
+                continue;
             }
         }
+        this.board[row][col] = "miss"
+                return "miss"
     }
     clearCellStates(){
-        let a = document.getElementById("playerBoard").children
-        for(let i = 0; i < a.length ; i++){
-            a[i].className = ""
-        }
-        let b = document.getElementById("enemyBoard").children
-        for(let i = 0; i < b.length ; i++){
-            b[i].className = ""
-        }
+        document.querySelectorAll(".grid").forEach((x)=>{
+            let c = x.children;
+            for(let i = 0; i < c.length; i++){
+                c[i].className = ""
+            }
+        })
+
 
     }
     setCellClass(row, col, prefix, c){
@@ -51,6 +52,13 @@ class Gameboard{
                 }
             }
         })
+        for(let i = 0; i < 10; i++){
+            for(let j = 0; j< 10; j++){
+                if(this.board[i][j]=="hit"){
+                    document.getElementById("p-"+i+"-"+j).classList.add("shipHit")
+                }
+            }
+        }
     }
     displayAsEnemy(){
         let e = document.getElementById("enemyBoard").children
