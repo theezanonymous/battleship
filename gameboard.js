@@ -17,10 +17,11 @@ class Gameboard{
         for(let i = 0; i < this.ships.length; i++){
             if(!this.ships[i].isSunk() && this.ships[i].contains(row,col) ){
                 this.ships[i].hit(); this.board[row][col] = "hit"
-                return;
+                return this.ships[i].isSunk()? "sunk" :"hit";
             }
             else{
                 this.board[row][col] = "miss"
+                return "miss"
             }
         }
     }

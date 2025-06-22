@@ -1,4 +1,5 @@
 import {Gameboard} from "./gameboard.js"
+import {loadTimeout, toggleGrid} from"./event.js"
 class Player{
     constructor(type, name){
         this.type = type; this.gameBoard = new Gameboard(); this.name = name; this.enemy= null
@@ -9,10 +10,11 @@ class Player{
     }
     startTurn(){
         // console.log(document.querySelector(".playerTracker").innerText)
-        // document.querySelector(".playerTracker").innerText = this.name;
+        document.querySelector(".playerTracker").innerText = this.name;
         this.gameBoard.clearCellStates()
         this.gameBoard.displayAsPlayer()
         this.enemy.gameBoard.displayAsEnemy()
+        document.querySelector(".message").innerText = this.name + "'s Turn"
     }
     convertIdToPair(id){
         id = id.substring(2, id.length)
@@ -24,14 +26,34 @@ class Player{
     isValidAttack(id){
         let pair = this.convertIdToPair(id)
         let row = pair[0]; let col = pair[1]
-        return this.gameBoard.board[row][col]==""
+        let res = this.gameBoard.board[row][col]==""
+        //(res)
+        return res
+    }
+    
+    displayHitOrMiss(hit){
+        let e = document.querySelector(".message")
+        if(hit=="hit"){
+            e.innerText = this.name + " hit a ship!"
+        }
+        else if(hit=="sunk"){
+            e.innerText = this.name  + " sank a ship!"
+        }
+        else{
+            e.innerText = this.name + " missed!"
+        }
     }
     processTurn(id){
         let pair = this.convertIdToPair(id)
         let row = pair[0]; let col = pair[1]
-        this.enemy.gameBoard.receiveAttack(row, col);
+        let hit = this.enemy.gameBoard.receiveAttack(row, col);
+        this.displayHitOrMiss(hit)
     }
-    endTurn(){
+    async endTurn(){
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        toggleGrid();
+        await loadTimeout("Switching Players...", 3000)
+        toggleGrid();
         this.enemy.startTurn()
     }
 }

@@ -2,7 +2,7 @@
     margin: 0 ; 
 }
 .playerTracker{
-    display: none;
+    display: block;
 }
 body{
   background-color: black;   font-family:'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -14,6 +14,9 @@ body{
 .logo{
     height: 17vh; 
     box-shadow: white;
+}
+.message{
+    color: white; text-align: center; font-size: 6vh; height: 8vh;
 }
 .menuScreen{
     display: flex; justify-content: center; align-items: center; height: 80vh;

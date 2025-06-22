@@ -9,6 +9,15 @@ function toggleMenu(){
     }
     
 }
+function toggleGrid(){
+    let e = document.querySelector(".gridContainer")
+    if(e.style.display=="none"){
+        e.style.display="grid"
+    }
+    else{
+        e.style.display = "none"
+    }
+}
 async function loadTimeout(text, ms){
     let e = document.querySelector(".loadingScreen")
     e.style.display = "block"; e.innerText = text;
@@ -29,10 +38,9 @@ function loadCells(p1, p2){
            if(x.id=="enemyBoard"){ //Configure event for selecting enemy board slots
                 e.addEventListener("click", ()=>{
                     let p = document.querySelector(".playerTracker")
-                    console.log(p.innerText)
                     if(p.innerText = "P1"){
                         if(p2.isValidAttack(e.id)){ //If the enemy has not been hit here...
-                            console.log("Player 1's Attack is valid")
+                           // console.log("Player 1's Attack is valid")
                             p1.processTurn(e.id); 
                             p1.endTurn()
                             p.innerText = "P2"
@@ -40,7 +48,7 @@ function loadCells(p1, p2){
                     }
                     else{
                         if(p1.isValidAttack(e.id)){
-                            console.log("Player 2's attack is valid")
+                            //console.log("Player 2's attack is valid")
                             p2.processTurn(e.id);
                             p2.endTurn()
                             p.innerText = "P1"
@@ -52,4 +60,4 @@ function loadCells(p1, p2){
     })
 }
 
-export {toggleMenu, loadTimeout, loadCells}
+export {toggleMenu, loadTimeout, loadCells, toggleGrid}
