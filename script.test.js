@@ -42,6 +42,17 @@ test("isValidAttack works", ()=>{
     
 
 })
+test("Is Valid Placement works", ()=>{
+    let gB = new Gameboard()
+    gB.placeShip(1, 0, 0, "horizontal")
+    gB.placeShip(5, 0, 5, "vertical")
+    expect(gB.isValidPlacement(1, 0, 0, "horizontal")).toBeFalsy()
+    expect(gB.isValidPlacement(1, 1, 0, "vertical")).toBeTruthy()
+    expect(gB.isValidPlacement(4, 0,1, "horizontal")).toBeTruthy()
+    expect(gB.isValidPlacement(6, 0,0, "horizontal")).toBeFalsy()
+    expect(gB.isValidPlacement(5, 0, 5, "vertical")).toBeFalsy()
+    expect(gB.isValidPlacement(1, 4, 0, "horizontal")).toBeTruthy()
+})
 // test("Marking a hit works", ()=>{
 //     let p1 = new Player(); let p2 = new Player();
 //     //loadCells()

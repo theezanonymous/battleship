@@ -13,6 +13,23 @@ class Gameboard{
     placeShip(length, row, col, orientation){
         this.ships.push(new Ship(length, row, col, orientation))
     }
+    isValidPlacement(length, startRow, startCol, orientation){
+        let endRow = orientation=="horizontal"?startRow: startRow+length-1;
+        let endCol = orientation=="vertical"? startCol:startCol+length-1;
+        // console.log(length, startRow, startCol, endRow, endCol, orientation)
+        for(let r = startRow; r <=endRow; r++){
+            for(let c = startCol; c <=endCol; c++){
+                console.log(r, c)
+                for(let i = 0; i < this.ships.length; i++){
+                    console.log(this.ships[i])
+                    if(this.ships[i].contains(r, c)){
+                        return false
+                    }
+                }
+            }
+        }
+        return true
+    }
     receiveAttack(row, col){
         for(let i = 0; i < this.ships.length; i++){
             // console.log(this.ships[i], row, col, this.ships[i].contains(row, col))

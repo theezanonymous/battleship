@@ -5,7 +5,7 @@
     display: block; scale: 0;
 }
 body{
-    overflow: hidden;
+  overflow: hidden;
   background-color: black;   font-family:'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   color: white;
 }
@@ -21,9 +21,11 @@ body{
     color: white; text-align: center; font-size: 6vh; height: 8vh;
 }
 .menuScreen{
-    display: flex; justify-content: center; align-items: center; height: 80vh;
+    display: flex; justify-content: start; align-items: center; height: 80vh;
     color: white; text-align: center; font-weight: 700;
     font-size: 3vh; flex-wrap: wrap; flex-direction: column;
+    padding-top: 6vh;
+    gap: 10vh;
 }
 .playerSelection{
     display: grid; 
@@ -109,25 +111,30 @@ div>.shipHit{
     opacity: 0; transition: 1s ease-in-out;
     height: 0; width: 100%; 
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 2fr 3fr;
     justify-content: center;
-    gap: 7vh;
 
 }
 .gameOverScreen#show{
-    margin-top: 8vh; height: 100%; position: fixed;
+    margin-top: 0vh; height: 100%; position: fixed;
+    padding-top: 10vh;
     opacity: 1; transition: 3s ease-in-out;
 }
 .gameOverMessage{
     text-align: center; font-size: 10vh;
 }
 #restart{
-    padding-top: 1vh;
+    padding-top: 2vh; text-align: center; width: 16vw;
 }
 #restart.show{
     height: 8vh; transition: all 0.7s ease-in-out; font-size: 5vh;
-    border: solid 7px white; border-radius: 15px; text-align: center; width: 16vw;
+    border: solid 5px white; border-radius: 20px; 
 }
 #restart.hide{
-    scale: 0; transition: 0.7s ease-in-out;
+    scale: 0; 
+    transition: none;
+}
+#restart.show:hover{
+    width: 20vw;
+    transition: all 0.7s ease-in-out;
 }
