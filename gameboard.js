@@ -14,14 +14,18 @@ class Gameboard{
         this.ships.push(new Ship(length, row, col, orientation))
     }
     isValidPlacement(length, startRow, startCol, orientation){
+        startRow = parseInt(startRow); startCol = parseInt(startCol)
         let endRow = orientation=="horizontal"?startRow: startRow+length-1;
         let endCol = orientation=="vertical"? startCol:startCol+length-1;
         // console.log(length, startRow, startCol, endRow, endCol, orientation)
         for(let r = startRow; r <=endRow; r++){
             for(let c = startCol; c <=endCol; c++){
-                console.log(r, c)
+                // console.log(r, c)
+                if(r<0 || r>9 || c<0 || c>9){
+                    return false
+                }
                 for(let i = 0; i < this.ships.length; i++){
-                    console.log(this.ships[i])
+                    // console.log(this.ships[i])
                     if(this.ships[i].contains(r, c)){
                         return false
                     }
@@ -51,6 +55,12 @@ class Gameboard{
                 c[i].className = ""
             }
         })
+        document.querySelectorAll(".mockGrid").forEach((x)=>{
+            let c = x.children;
+            for(let i = 0; i < c.length; i++){
+                c[i].className = ""
+            }
+        })
 
 
     }
@@ -58,6 +68,17 @@ class Gameboard{
         let id = prefix+ "-" + row + "-" + col; 
         let e = document.getElementById(id)
         e.className = c
+    }
+    displayAsMock(){
+        this.ships.forEach((ship)=>{
+            let endRow = ship.orientation=="horizontal"?ship.startRow: ship.startRow+ship.length-1;
+            let endCol = ship.orientation=="vertical"? ship.startCol: ship.startCol+ship.length-1;
+            for(let i = ship.startRow; i <=endRow; i++){
+                for(let j = ship.startCol; j <=endCol; j++){
+                    this.setCellClass(i, j, "m", "ship")
+                }
+            }
+        })
     }
     displayAsPlayer(playerNum){
         this.ships.forEach((ship)=>{

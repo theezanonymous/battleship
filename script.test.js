@@ -52,6 +52,8 @@ test("Is Valid Placement works", ()=>{
     expect(gB.isValidPlacement(6, 0,0, "horizontal")).toBeFalsy()
     expect(gB.isValidPlacement(5, 0, 5, "vertical")).toBeFalsy()
     expect(gB.isValidPlacement(1, 4, 0, "horizontal")).toBeTruthy()
+    expect(gB.isValidPlacement(11, 0, 0, "horizontal")).toBeFalsy()
+    expect(gB.isValidPlacement(4, 9, 4, "vertical")).toBeFalsy()
 })
 // test("Marking a hit works", ()=>{
 //     let p1 = new Player(); let p2 = new Player();

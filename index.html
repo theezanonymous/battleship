@@ -33,6 +33,30 @@
                 </div>
                 <div class="startButton">Start</div>
             </div>
+            <div class="mockGridContainer">
+                <div class="mockGrid"></div>
+                <div class="setup">
+                    <div class="setupHeader"></div>
+                    <div class = "shipLength">Ship Length: 5</div>
+                    <div class="setupForm">
+                        <label for="row">Row:</label>
+                        <input type="number" id = "row" min = "0" max = "9" value = "0">
+                        <label for="col">Column:</label>
+                        <input type="number" id = "col" min = "0" max = "9" value = "0">
+                        <label for="horizontal">
+                            <input type="radio" id = "horizontal" name = "orientation" value = "horizontal" checked>Horizontal
+                        </label>
+                        <label>
+                            <input type="radio" id = "vertical" name = "orientation"  value = "vertical">Vertical
+                        </label>
+                        <div class = "randomButton">Random</div>
+                    </div>
+                    <div class="submitSetup">Enter Ship</div>
+                </div>
+            </div>
+            <!-- <div class="mockGridContainerP2">
+                <div class="mockGrid mockGridP2"></div>
+            </div> -->
             <div class="gridContainer" id = "p1">
                 <div class="grid p1Grid" id = "playerBoard"></div>
                 <div class="grid p1Grid" id="enemyBoard"></div>

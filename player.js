@@ -1,12 +1,70 @@
 import {Gameboard} from "./gameboard.js"
-import {loadTimeout, toggleGridDisplay, delay} from"./event.js"
+import {loadTimeout,loadCells, toggleGridDisplay, delay, toggleMockGrid, getSetup, getRandomSetup} from"./event.js"
 class Player{
     constructor(type, name){
         this.type = type; this.gameBoard = new Gameboard(); this.name = name; this.enemy= null
+        this.shipsToPlace = [2,2,3,3,3,3,4,4,5,5]
     }
     loadShips(){
-        this.gameBoard.placeShip(1, 0, 0, "horizontal") 
+        document.querySelector(".setupHeader").innerText = this.name + " Board Setup"
+        document.querySelector(".shipLength").innerText = "Ship Length: 5"
+        // this.gameBoard.placeShip(1, 0, 0, "horizontal") 
         // this.gameBoard.placeShip(2, 1, 0, "vertical")
+        let submitButton = document.querySelector(".submitSetup")
+        let x = async (event)=>{
+            let currShip = null;
+            if(event.currentTarget.className== "submitSetup"){
+                currShip = getSetup()
+            }
+            else{
+                currShip = getRandomSetup()
+                while(!this.gameBoard.isValidPlacement(this.shipsToPlace[this.shipsToPlace.length-1], currShip.row, currShip.col, currShip.orientation)){
+                    currShip = getRandomSetup(); 
+                }
+            }
+            let row = parseInt(currShip.row); let col = parseInt(currShip.col); let ori = currShip.orientation
+            let len = this.shipsToPlace[this.shipsToPlace.length-1]
+            //console.log(row, col, ori, len)
+            if(this.gameBoard.isValidPlacement(len, row, col, ori)){
+                this.gameBoard.placeShip(len, row, col, ori); 
+                this.gameBoard.displayAsMock()
+                this.shipsToPlace.pop()
+                if(this.shipsToPlace.length==0){
+                    //Proceed to switch players
+                    if(this.name=="P1"){
+                        //Switch to P2
+                        loadTimeout("Switching Players...", 1000)
+                        // document.querySelector(".setupForm").removeChild(event.currentTarget)
+                        // let newButton = document.createElement("div"); newButton.className = "submitSetup"
+                        // document.querySelector(".setupForm").appendChild(newButton)
+                        document.querySelector(".submitSetup").removeEventListener("click", x)
+                        document.querySelector(".randomButton").removeEventListener("click", x)
+                        this.gameBoard.clearCellStates(); 
+                        this.enemy.loadShips()
+                    }
+                    else{
+                        //We can start the game
+                        await loadTimeout("Starting Game...", 3000)
+                        await loadTimeout("3...", 1000)
+                        await loadTimeout("2...", 1000)
+                        await loadTimeout("1...", 1000)
+                        toggleMockGrid()
+                        
+                        loadCells(this.enemy, this); 
+                        this.enemy.startTurn()
+                    }
+
+                }
+                else{
+                    document.querySelector(".shipLength").innerText = "Ship Length: "+ this.shipsToPlace[this.shipsToPlace.length-1]
+                }
+            }
+            else{
+                alert("Invalid Ship Placement")
+            }
+        }
+        submitButton.addEventListener("click", x)
+        document.querySelector(".randomButton").addEventListener("click", x)
     }
     startTurn(){
         // console.log(document.querySelector(".playerTracker").innerText)

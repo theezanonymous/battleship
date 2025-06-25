@@ -20,6 +20,10 @@ function toggleGridDisplay(){
     let e = document.querySelector(".body");
     e.style.display= e.style.display=="none"?"block": "none";
 }
+function toggleMockGrid(){
+    let e = document.querySelector(".mockGridContainer")
+    e.style.display= e.style.display=="none"?"grid": "none";
+}
 function toggleGrid(){
     let e = document.querySelectorAll(".gridContainer")
     if(e[0].style.display=="none"){
@@ -83,5 +87,37 @@ function loadCells(p1, p2){
         }
     })
 }
+function loadMockGridCells(){
+    let gridContainer = document.querySelector(".mockGridContainer"); gridContainer.style.display = "grid";
+    let x = document.querySelector(".mockGrid")
+    for(let i = 0; i < 100; i++){
+        let e = document.createElement("div")
+        let id = "m" + "-"+(parseInt(i/10))+"-"+(i%10)
+        e.id = id
+        e.innerText = i<10?i:i%10==0?parseInt(i/10):""
+        x.appendChild(e)
+    }
+}
+function getSetup(){
+    // let len = document.querySelector(".shipLength").innerText
+    // len = len.substring(len.length -1)
 
-export {toggleMenu, loadTimeout, loadCells, toggleGrid, toggleGridDisplay, delay, clearScreens}
+    return {
+        row: document.getElementById("row").value,
+        col: document.getElementById("col").value,
+        orientation: document.querySelector('input[name="orientation"]:checked').value
+    }
+}
+function getRandomSetup(){
+    let r = parseInt(Math.random()*10)
+    let c = parseInt(Math.random()*10)
+    let o = parseInt(Math.random()*2)==0?"horizontal":"vertical"
+    return {
+        row: r, 
+        col: c,
+        orientation: o
+    }
+}
+
+
+export {getSetup, getRandomSetup, toggleMenu, loadTimeout, loadCells, toggleGrid, toggleGridDisplay, delay, clearScreens, toggleMockGrid, loadMockGridCells}
