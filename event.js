@@ -45,7 +45,7 @@ async function loadTimeout(text, ms){
 function loadCells(p1, p2){
     let gridContainer = document.querySelector("#p1"); gridContainer.style.display = "grid";
     document.querySelectorAll(".p1Grid").forEach((x)=>{
-        for(let i = 0; i < 100; i++){//Okay, we have two types of cells with the same ids. We need to resolve
+        for(let i = 0; i < 100; i++){
            let e = document.createElement("div")
            let tag = x.id == "playerBoard"? "1":"e"
            tag = tag + "-"+(parseInt(i/10))+"-"+(i%10)
@@ -59,7 +59,13 @@ function loadCells(p1, p2){
                         // console.log("Player 1's Attack is valid")
                         p1.processTurn(e.id); 
                         await p1.endTurn()
-                        toggleGrid()
+                        
+                        if(p2.type=="computer"){
+                            //await p2.startTurn()
+                        }
+                        else{
+                            toggleGrid()
+                        }
                     }
                 })
            }

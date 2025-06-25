@@ -16,11 +16,6 @@ document.querySelector(".startButton").addEventListener("click", async ()=>{
     toggleMockGrid(); 
     loadMockGridCells(); document.querySelector(".setupHeader").innerText = "Player 1 Board Setup"
     p1.loadShips(); 
-    // loadMockGridCells();
-    // document.querySelector("setupHeader").innerText = "Player 2 Board Setup"
-    // p2.loadShips()
-    // loadCells(p1, p2); 
-    // p1.startTurn()
 })
 
 document.querySelector("#restart").addEventListener("click", async ()=>{

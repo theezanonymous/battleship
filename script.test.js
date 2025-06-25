@@ -55,17 +55,13 @@ test("Is Valid Placement works", ()=>{
     expect(gB.isValidPlacement(11, 0, 0, "horizontal")).toBeFalsy()
     expect(gB.isValidPlacement(4, 9, 4, "vertical")).toBeFalsy()
 })
-// test("Marking a hit works", ()=>{
-//     let p1 = new Player(); let p2 = new Player();
-//     //loadCells()
-//     p1.enemy = p2; p2.enemy = p1;
-//     p1.loadShips(); p2.loadShips()
-//     //p1.startTurn() 
-//     p1.processTurn("e-0-0")
-//     expect(p2.gameBoard.board[0][0]).toBe("hit")
-// })
-// test("Player switch works", ()=>{
-//     let p1 = new Player(); let p2 = new Player();
-//     p1.startTurn(); p1.endTurn(); p1.startTurn();
-//     expect()
-// })
+
+test ("Computer random placement works", ()=>{
+    let p2 = new Player("computer", "P2")
+    p2.loadShips()
+    let numFilledCells = 0
+    for(let i = 0; i < p2.gameBoard.ships.length; i++){
+        numFilledCells+=p2.gameBoard.ships[i].length;
+    }
+    expect(numFilledCells).toBe(34)
+})
